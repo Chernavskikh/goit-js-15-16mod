@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>15-16 prototype</title>
+
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+<body>
+<script type="text/javascript">
+	function Human (){
+    this.name = 'Vladimir',
+    this.age = 25,
+    this.sex = 'male',
+    this.height = 180,
+    this.weight = 85
+};
+
+
+Student.prototype = new Human();
+Worker.prototype = new Human();
+
+function Worker (){
+    this.workplace = 'big company',
+    this.salary = 10000,
+    this.work = function() {
+        alert('Это метод "Работать"');
+    };   
+};
+
+function Student (){
+    this.caregiver = 'univercity',
+    this.scholarship = 1000,
+    this.relax = function() {
+        alert('Это метод "Смотреть сериалы"');
+    };
+};
+
+var newStudent1= new Student();
+var newStudent2= new Student();
+var newStudent3= new Student();
+console.log('newStudent1.name =',newStudent1.name);
+console.log('newStudent2.weight =',newStudent2.weight);
+console.log('newStudent3.sex =',newStudent3.sex);
+console.log('newStudent3',newStudent3);
+
+var newWorker1= new Worker();
+var newWorker2= new Worker();
+var newWorker3= new Worker();
+console.log(newWorker3);
+console.log('newWorker2.weight=',newWorker2.weight);
+newStudent1.relax();
+</script>
+</body>
+
+</html>

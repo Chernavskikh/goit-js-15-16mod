@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>search</title>
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<style type="text/css">
+
+*{  
+	margin: 0;
+	padding: 0;
+}
+body{
+	background-color: black;
+}
+.search-box{
+	margin: 0 auto;
+	width: 500px;
+	text-align:center;
+}
+#searchtext{
+	height: 30px;
+	width: 200px;
+	font-size:18px;
+	margin-bottom: 15px;
+}
+#search-btn{
+	height: 34px;
+	width: 150px;
+	background-color: #150a75;
+	color: #ffffff;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	border:none;
+	padding-top:8px;
+	padding-bottom: 4px;
+	cursor: pointer;
+}
+img{
+    width: 300px;
+	height: auto;
+	border: 15px solid gray;
+	margin: 5px;
+	vertical-align: top;
+}
+#results{
+	width: 1100px;
+    margin: 0 auto;
+	text-align: center;
+		
+}
+
+	</style>
+</head>
+<body>
+<p>Find image by tag</p>
+
+<div class="search-box">
+		<input type="text" id="searchtext" >
+		<input type="submit" id="search-btn">
+</div>
+
+<div id="results"></div>
+
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+$('div.search-box input[type=text]').on('keydown', function (e) {
+    if (e.which == 13) {
+        $(this).parent().find('input[type=submit]').trigger('click');
+        return false;
+     }
+});
+
+$("#search-btn").click(function(){
+$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+{
+tags: $("#searchtext").val(),
+tagmode: "any",
+format: "json"
+},
+function(data) {
+$.each(data.items, function(i,item){
+$("<img/>").attr("src", item.media.m).prependTo("#results");
+if ( i == 10 ) return false;
+});
+});
+});
+});
+</script>
+</html>
